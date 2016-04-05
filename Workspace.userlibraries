@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eclipse-userlibraries>
+  <library name="iflytek-sequence-0.1.1">
+    <archive path="/Users/chenwuji/Documents/lib/spark/iflytek-sequence-0.1.1.jar" />
+    <archive path="/Users/chenwuji/Documents/lib/spark/spark-csv_2.10-1.2.0.jar" />
+    <archive path="/Users/chenwuji/Documents/lib/spark/commons-csv-1.1.jar" />
+  </library>
+  <library name="spark-assembly-1.5.2-hadoop2.3.0">
+    <archive path="/Users/chenwuji/Documents/lib/spark/spark-assembly-1.5.2-hadoop2.3.0.jar" />
+  </library>
+  <library name="scala-sdk-2.10.5">
+    <archive path="/Users/chenwuji/.ivy2/cache/org.scala-lang/scala-library/jars/scala-library-2.10.5.jar" />
+    <archive path="/Users/chenwuji/.ivy2/cache/org.scala-lang/scala-reflect/jars/scala-reflect-2.10.5.jar" />
+  </library>
+</eclipse-userlibraries>
+

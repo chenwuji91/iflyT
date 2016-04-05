@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact build-on-make="true" name="wj">
+    <output-path>$PROJECT_DIR$/out/artifacts/wj</output-path>
+    <root id="root">
+      <element id="archive" name="wj.jar">
+        <element id="module-output" name="Workspace" />
+      </element>
+    </root>
+  </artifact>
+</component>

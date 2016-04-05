@@ -1,0 +1,12 @@
+<component name="ArtifactManager">
+  <artifact build-on-make="true" name="wj">
+    <output-path>$PROJECT_DIR$/out/artifacts/wj</output-path>
+    <root id="root">
+      <element id="archive" name="wj.jar">
+        <element id="module-output" name="Workspace" />
+      </element>
+      <element id="library" level="project" name="iflytek-sequence-0.1.1" />
+      <element id="library" level="application" name="iflytek-home-0.1" />
+    </root>
+  </artifact>
+</component>

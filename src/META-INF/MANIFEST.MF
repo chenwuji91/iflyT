@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+Class-Path: iflytek-sequence-0.1.1.jar spark-csv_2.10-1.2.0.jar common
+ s-csv-1.1.jar scala-library-2.10.5.jar scala-reflect-2.10.5.jar spark
+ -assembly-1.5.2-hadoop2.3.0.jar
+Main-Class: RoadMatch.FrequencySequence
+
