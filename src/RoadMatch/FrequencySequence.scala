@@ -5,6 +5,7 @@ import java.io.PrintWriter
 import java.net.URL
 import com.iflytek.wuhu.ContMovingSeqUtil
 import com.iflytek.wuhu.ContMovingSeqUtil._
+import org.apache.spark.rdd.RDD
 import org.apache.spark.{SparkContext, SparkConf}
 import java.io.PrintWriter
 import java.io._
@@ -34,11 +35,16 @@ object FrequencySequence {
             val sc = new SparkContext(conf)
             print("Begin Program");
          //val seqRdd = genContMovingTripleSeq(sc,"hdfs://192.168.86.41:9000/user/ibs/result/20160310/*")
-       // seqRdd.take(100).foreach(println)
-          val sequence1 = genContMovingCISeq(sc,"hdfs://192.168.86.41:9000/user/ibs/result/20160310/*")
+         // seqRdd.take(100).foreach(println)
+       val sequence1 = genContMovingCISeq(sc,"hdfs://192.168.86.41:9000/user/ibs/result/20160310/*")
+
+
        sequence1.take(100).foreach(println)
          sc.stop()
      }
+  def onePoint(sc:SparkContext,rDD: RDD[(String, List[List[String]])]):RDD[(String,String)] = {
+      val onePoint = rDD.mapValues()
+  }
   def deleteHDFSDir(hdfsPathStr: String): Unit = {
            val hdfs = FileSystem.get(new URI("hdfs://192.168.86.41:9000"), new Configuration())
            val outputDir = new Path(hdfsPathStr)

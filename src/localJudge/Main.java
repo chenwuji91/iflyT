@@ -18,9 +18,9 @@ public class Main {
         m.checkLegal();
         System.out.println("The F-value is : "+m.calculate());
 
-
-
     }
+
+
     private void init()
     {
         predict = FileRead.loadPredicting();

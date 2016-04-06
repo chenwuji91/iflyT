@@ -14,7 +14,7 @@ import java.util.HashMap;
 public class TrainingDataGenerate {
     public static HashMap<String,String> map = new HashMap();
     public static void main(String args[]) throws Exception {
-        generateByUser();
+        generateBySong();
     }
     private static HashMap<String,String> singersong() throws Exception {
       //  /Users/chenwuji/Documents/skypool/mars_tianchi_songs.csv
@@ -102,7 +102,7 @@ public class TrainingDataGenerate {
 
     private static void generateBySong() throws  Exception
     {
-        File file = new File("/Users/chenwuji/Documents/skypool/training/");
+        File file = new File("/Users/chenwuji/Documents/skypool/skypool_testing_data/");
         String rootpath = file.getAbsolutePath();
         String fileList[] = file.list();
         ArrayList<String> filelist2 = new ArrayList<String>();
@@ -127,7 +127,7 @@ public class TrainingDataGenerate {
                     System.out.println(line);
                     line = line.substring(1, line.length() - 1);
                     String date = line.split(",")[1];
-                    writeToFile("/Users/chenwuji/Documents/skypool/TrainingByDay/", line, date);
+                    writeToFile("/Users/chenwuji/Documents/skypool/TrainingBysongTesting/", line, date);
                 }
                 io.close();
             }
