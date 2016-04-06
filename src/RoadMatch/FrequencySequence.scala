@@ -37,14 +37,78 @@ object FrequencySequence {
          //val seqRdd = genContMovingTripleSeq(sc,"hdfs://192.168.86.41:9000/user/ibs/result/20160310/*")
          // seqRdd.take(100).foreach(println)
        val sequence1 = genContMovingCISeq(sc,"hdfs://192.168.86.41:9000/user/ibs/result/20160310/*")
-
-
-       sequence1.take(100).foreach(println)
-         sc.stop()
+       sequence1.take(10).foreach(println)
+//       onePoint(sc,sequence1)
+       calculatePairFrequency(sc,sequence1)
+       sc.stop()
      }
-  def onePoint(sc:SparkContext,rDD: RDD[(String, List[List[String]])]):RDD[(String,String)] = {
-      val onePoint = rDD.mapValues()
+
+  def calculatePairFrequency(sc:SparkContext,rDD: RDD[(String, List[List[String]])]):RDD[List[Any]] = {
+
   }
+
+  def pairGen(sc:SparkContext,rDD: RDD[(String, List[List[String]])]):RDD[List[Any]] = {
+    //var list:List[String] = List("")
+    val onePoint = rDD.map(x => x._2)
+    val oneSeq = onePoint.flatMap(x => x.toList)
+    val pair = oneSeq.map(x=>{
+      var l: List[Any] = List()
+      if(x.length>1)
+        {
+          for(i:Int<- 0 to x.length-2)
+          {
+            val temp:List[(String, String)] = List((x(i),x(i+1)))
+            l = l:::temp
+          }
+        }
+       l
+    })
+    deleteHDFSDir("hdfs://192.168.86.41:9000/user/wjchen/test123")
+    pair.saveAsTextFile("hdfs://192.168.86.41:9000/user/wjchen/test123")
+    pair
+  }
+
+
+  def onePoint(sc:SparkContext,rDD: RDD[(String, List[List[String]])]):RDD[(String, Int)] = {
+    //var list:List[String] = List("")
+    val onePoint = rDD.map(x=>x._2)
+    val newList = onePoint.flatMap(x => x.toList )
+    val countOne = newList.flatMap(x => x.toList)
+    val times = countOne.map(x=>(x,1)).reduceByKey(_+_)
+    deleteHDFSDir("hdfs://192.168.86.41:9000/user/wjchen/test123")
+    times.saveAsTextFile("hdfs://192.168.86.41:9000/user/wjchen/test123")
+//    {
+//      println("ggggggg")
+//     for (i <- 0 to x.length - 1){
+//       println(i)
+//       println(x(i))
+//
+//     }
+//    }
+
+    //{
+//      for(i<- 0 to x.length-1)
+//        {
+//          list = list:::x(i)
+//        }
+//      list.foreach(println)
+//    }for(i<- 0 to x.length){
+//
+//
+//          println("sswwws"+x(0))
+//          list = list:::it.next()
+//          println("sss"+it.next())
+//
+
+//    val list = List("sss")
+//    val Rdd2 = sc.parallelize(list)
+//    Rdd2.take(1000).foreach(println)
+    return times
+  }
+
+
+
+
   def deleteHDFSDir(hdfsPathStr: String): Unit = {
            val hdfs = FileSystem.get(new URI("hdfs://192.168.86.41:9000"), new Configuration())
            val outputDir = new Path(hdfsPathStr)
