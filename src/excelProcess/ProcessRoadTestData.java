@@ -79,9 +79,7 @@ public class ProcessRoadTestData {
 
         }
 
-//        //得到Excel工作表对象
-//        XSSFSheet sheet = wb.getSheetAt(0);
-//        //得到Excel工作表的行
+
 
     }
     private static void writeToFile(String path,String data) throws Exception
