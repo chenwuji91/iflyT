@@ -13,12 +13,29 @@ import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class Test {
+    public static void readExcel2() throws IOException
+    {
+       // POIFSFileSystem fs=new POIFSFileSystem(new FileInputStream("/Users/chenwuji/Desktop/anshida/1.xlsx"));
+        //得到Excel工作簿对象
+        XSSFWorkbook wb = new XSSFWorkbook("/Users/chenwuji/Desktop/anshida/1.xlsx");
+        //得到Excel工作表对象
+        XSSFSheet sheet = wb.getSheetAt(0);
+        //得到Excel工作表的行
+        XSSFRow row = sheet.getRow(6);
+        //得到Excel工作表指定行的单元格
+        XSSFCell cell = row.getCell((short) 3);
+        String cellStyle = cell.getRawValue();//得到单元格样式
+        System.out.println(cellStyle);
+    }
+
+
     /**
      * 对外提供读取excel 的方法
      * */
@@ -186,7 +203,7 @@ public class Test {
 
     public static void main(String[] args) {
         try {
-            readExcel(new File("D:\\test.xlsx"));
+           readExcel2();
             // readExcel(new File("D:\\test.xls"));
         } catch (IOException e) {
             e.printStackTrace();
