@@ -43,8 +43,34 @@ object FrequencySequence {
        sc.stop()
      }
 
-  def calculatePairFrequency(sc:SparkContext,rDD: RDD[(String, List[List[String]])]):RDD[List[Any]] = {
+  def calculatePairFrequency(sc:SparkContext,rDD: RDD[(String, List[List[String]])]):RDD[(Any, Int)] = {
+    val pair:RDD[List[Any]] = pairTriGen(sc,rDD)
+    val allpair = pair.flatMap(x=>x.toList).map(x=>(x,1))
+    val pairCount = allpair.reduceByKey(_+_)
+    deleteHDFSDir("hdfs://192.168.86.41:9000/user/wjchen/test12345")
+    pairCount.saveAsTextFile("hdfs://192.168.86.41:9000/user/wjchen/test12345")
+    pairCount
 
+  }
+
+  def pairTriGen(sc:SparkContext,rDD: RDD[(String, List[List[String]])]):RDD[List[Any]] = {
+    //var list:List[String] = List("")
+    val onePoint = rDD.map(x => x._2)
+    val oneSeq = onePoint.flatMap(x => x.toList)
+    val pair = oneSeq.map(x=>{
+      var l: List[Any] = List()
+      if(x.length>2)
+      {
+        for(i:Int<- 0 to x.length-3)
+        {
+          val temp:List[(String, String,String)] = List((x(i),x(i+1),x(i+2)))
+          l = l:::temp
+        }
+      }
+      l
+    })
+
+    pair
   }
 
   def pairGen(sc:SparkContext,rDD: RDD[(String, List[List[String]])]):RDD[List[Any]] = {
@@ -63,8 +89,7 @@ object FrequencySequence {
         }
        l
     })
-    deleteHDFSDir("hdfs://192.168.86.41:9000/user/wjchen/test123")
-    pair.saveAsTextFile("hdfs://192.168.86.41:9000/user/wjchen/test123")
+
     pair
   }
 
@@ -74,35 +99,10 @@ object FrequencySequence {
     val onePoint = rDD.map(x=>x._2)
     val newList = onePoint.flatMap(x => x.toList )
     val countOne = newList.flatMap(x => x.toList)
-    val times = countOne.map(x=>(x,1)).reduceByKey(_+_)
+    val times = countOne.map(x=>((x),1)).reduceByKey(_+_)
     deleteHDFSDir("hdfs://192.168.86.41:9000/user/wjchen/test123")
     times.saveAsTextFile("hdfs://192.168.86.41:9000/user/wjchen/test123")
-//    {
-//      println("ggggggg")
-//     for (i <- 0 to x.length - 1){
-//       println(i)
-//       println(x(i))
-//
-//     }
-//    }
 
-    //{
-//      for(i<- 0 to x.length-1)
-//        {
-//          list = list:::x(i)
-//        }
-//      list.foreach(println)
-//    }for(i<- 0 to x.length){
-//
-//
-//          println("sswwws"+x(0))
-//          list = list:::it.next()
-//          println("sss"+it.next())
-//
-
-//    val list = List("sss")
-//    val Rdd2 = sc.parallelize(list)
-//    Rdd2.take(1000).foreach(println)
     return times
   }
 

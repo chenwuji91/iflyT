@@ -1,0 +1,18 @@
+<component name="libraryTable">
+  <library name="poi-ooxml-3.14-20160307">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Documents/lib/poi-ooxml-3.14-20160307.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/lib/poi-examples-3.14-20160307.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/lib/poi-ooxml-schemas-3.14-20160307.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/lib/junit-4.12.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/lib/poi-excelant-3.14-20160307.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/lib/poi-scratchpad-3.14-20160307.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/lib/log4j-1.2.17.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/lib/poi-3.14-20160307.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/lib/commons-logging-1.2.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/lib/commons-codec-1.10.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
