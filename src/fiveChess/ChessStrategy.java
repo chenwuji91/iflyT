@@ -148,29 +148,57 @@ class ComputerStrategy{
 	 * @return 所有可以落子的位置
 	 * 搜索某一深度的一些空位，如果周围一定的范围内有棋子，认为这个位置是一个可行的位置
 	 */
-	public Point[] gen(Point[] chesslist, int deep){
+	public Point[] gen(Point[] chesslist, int deep){//默认设定deep为2
 
 		Point[] availablePoint = new Point[18*18];
 		int countAvailable = 0;
 		refreshChess(chesslist);//刷新当前棋盘棋子状态
-		for(Point p:chesslist)
+        neighbour(3);//第一次搜索棋盘上的可用区域,将可以放棋子的地方标记为3
+        neighbour(4);//第二次搜索棋盘上面可以放棋子的区域,将可以放棋子的区域标记为4
+		for(int i = 0;i< 18;i++)
 		{
-			if(p.getColor()!=Color.black&&p.getColor()!=Color.white)
+			for(int j = 0;j < 18 ; j++)
 			{
-				for(int i=-deep;i<=deep;i++)
-					for(int j=-deep;j<=deep;j++)
-					{
-						if((i+j>-deep)&&(i+j<deep))
-						{
-							if(chessNow[i+j][i+j]==0)
-							{
-								availablePoint[countAvailable++] = new Point(i+j,i+j,Color.blue);
-							}
-						}
-					}
+//				if(chessNow[i][j]==0)//如果当前位置是空位置
+//				for(int k = -deep;k<=deep;k++)//x偏移
+//				{
+//					for(int l = -deep;l<=deep;l++)//y偏移
+//					{
+//						if((k+l<=deep)&&(k+l>=-deep))
+//                        {
+//                            if(i+k<0||i+k>=18)//偏移超出边界
+//                                break;
+//                            if(j+l<0||j+l>=18)//偏移超出边界
+//                                break;
+//                            if(chessNow)
+//                        }
+//					}
+//				}
 			}
 		}
 		return chesslist;
 	}
+    private void neighbour(int status)
+    {
+        for(int i = 0;i< 18;i++)
+        {
+            for(int j = 0;j < 18 ; j++)
+            {
+                if(chessNow[i][j]==0)
+                {
+                    if(i-1>=0&&chessNow[i-1][j]!=0)
+                        chessNow[i][j] = status;//  设置为指定的状态位
+                    if(i+1<18&&chessNow[i+1][j]!=0)
+                        chessNow[i][j] = status;//
+                    if(j-1>=0&&chessNow[i][j-1]!=0)
+                        chessNow[i][j] = status;//
+                    if(j+1<18&&chessNow[i][j+1]!=0)
+                        chessNow[i][j] = status;//
+                }
+
+            }
+        }
+
+    }
 
 }
