@@ -1,6 +1,7 @@
 package fiveChess;
 import java.awt.event.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 import javax.swing.*;
 
@@ -155,27 +156,7 @@ class ComputerStrategy{
 		refreshChess(chesslist);//刷新当前棋盘棋子状态
         neighbour(3);//第一次搜索棋盘上的可用区域,将可以放棋子的地方标记为3
         neighbour(4);//第二次搜索棋盘上面可以放棋子的区域,将可以放棋子的区域标记为4
-		for(int i = 0;i< 18;i++)
-		{
-			for(int j = 0;j < 18 ; j++)
-			{
-//				if(chessNow[i][j]==0)//如果当前位置是空位置
-//				for(int k = -deep;k<=deep;k++)//x偏移
-//				{
-//					for(int l = -deep;l<=deep;l++)//y偏移
-//					{
-//						if((k+l<=deep)&&(k+l>=-deep))
-//                        {
-//                            if(i+k<0||i+k>=18)//偏移超出边界
-//                                break;
-//                            if(j+l<0||j+l>=18)//偏移超出边界
-//                                break;
-//                            if(chessNow)
-//                        }
-//					}
-//				}
-			}
-		}
+
 		return chesslist;
 	}
     private void neighbour(int status)
@@ -198,7 +179,52 @@ class ComputerStrategy{
 
             }
         }
+    }
 
+    /**
+     *
+     * @return  将原始的状态数组返回成一个 一维数组的形式  这个一位数组包含了所有五子棋允许的相关状态 返回值用ArrayList保存
+     */
+    private ArrayList<int[]> flat()
+    {
+        ArrayList<int[]> singleList = new ArrayList<int[]>();
+        for(int i = 0;i< 18;i++)//添加横的行
+            singleList.add(chessNow[i]);
+        for(int i = 0;i<18;i++)//添加竖的列
+        {
+            int[] temp = new int[18];
+            for(int j=0;j<18;j++)
+            {
+                temp[j] = chessNow[j][i];
+            }
+            singleList.add(temp);
+        }
+        for(int i = 0;i < 14;i++)//添加向下方斜的数字
+        {
+            int[] temp = new int[18-i];
+            int[] temp2 = new int[18-i];
+            for(int j=0;j<18-i;j++)
+            {
+                temp[j]= chessNow[j][j+i];
+                temp2[j] = chessNow[j+i][j];
+            }
+            singleList.add(temp);
+            singleList.add(temp2);
+        }
+        for(int i=0;i<14;i++)
+        {
+            int temp[] = new int[18-i];
+            int temp2[] = new int[18-i];
+            for(int j = 17;j > 4;j--)
+            {
+                temp[j] = chessNow[17-j+i][j];
+                temp2[j] = chessNow[17-j][j-i];
+
+            }
+            singleList.add(temp);
+            singleList.add(temp2);
+        }
+        return singleList;
     }
 
 }
