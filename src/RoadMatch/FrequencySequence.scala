@@ -37,7 +37,7 @@ object FrequencySequence {
          //val seqRdd = genContMovingTripleSeq(sc,"hdfs://192.168.86.41:9000/user/ibs/result/20160310/*")
          // seqRdd.take(100).foreach(println)
        val sequence1 = genContMovingCISeq(sc,"hdfs://192.168.86.41:9000/user/ibs/result/20160310/*")
-       sequence1.take(10).foreach(println)
+ //      sequence1.take(10).foreach(println)
 //       onePoint(sc,sequence1)
        calculatePairFrequency(sc,sequence1)
        sc.stop()

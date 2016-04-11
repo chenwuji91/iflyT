@@ -18,11 +18,12 @@ import java.util.Iterator;
  */
 public class ProcessRoadTestData {
 
-    public static final String path2 = "/Users/chenwuji/Downloads/芜湖市政府/";
-    public static final String path1 = "/Users/chenwuji/Downloads/安师大南校区/";
+    public static final String path1 = "/Users/chenwuji/Downloads/芜湖市政府/";
+    public static final String path2 = "/Users/chenwuji/Downloads/安师大南校区/";
     public static final String outputPath = "/Users/chenwuji/Documents/RoadTest/";
     public static final String AESEmic = "QoUs940IZkYpoNdQlSEqkw==";
     public static final String Other = "Service_Req,4G";
+    public static long timeDeviation = 0;
 
     public static ArrayList<String> fileList() throws IOException{
         File file = new File(path1);
@@ -47,6 +48,7 @@ public class ProcessRoadTestData {
         Iterator it = wb.iterator();
         while(it.hasNext())
         {
+            timeDeviation++;
             XSSFSheet sheet = (XSSFSheet)it.next();
             String sheetName = sheet.getSheetName();
        //     System.out.println("输出1"+);
@@ -67,13 +69,17 @@ public class ProcessRoadTestData {
                     if(cellDate.getCellType()!=0)
                         continue;
                     Date cellData1 = cellDate.getDateCellValue();
+                    if(cellData1.getYear()<2000)
+                        cellData1 = row.getCell((short) 0).getDateCellValue();
+                    Date datediviation = new Date(cellData1.getTime()+ timeDeviation*3600000L*24L);
                     SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
-                    String date = df.format(cellData1);
+                    //String date = df.format(cellData1);
+                    String date = df.format(datediviation);
+
                     System.out.println(date + " "+ xiaoQuID);
                     int xiaoquProcessed = Integer.valueOf(xiaoQuID.substring(0,6))*256+Integer.valueOf(xiaoQuID.substring(6,8));
                     writeToFile(outputPath+filename+"_"+sheetName,date+","+","+xiaoquProcessed+","+AESEmic+","+Other);
                 }
-
 
             }
 
