@@ -34,7 +34,7 @@ public class Main {
     {
         if(predict.size()!=testing.size())
         {
-            System.out.println("List Error Existing!!");
+            System.out.println("List Error Existing!!Error code:"+predict.size()+","+testing.size());
         }
         if(testing.size()!=Const.singerCount*Const.DayOfPredictDay)
         {

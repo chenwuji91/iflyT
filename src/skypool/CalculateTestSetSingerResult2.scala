@@ -26,7 +26,7 @@ object CalculateTestSetSingerResult2 {
        val aggregated = currentDay.groupBy(_._2).map(x=>(x._1,x._2.toList.length))
 
        val Date123 = 20150701;
-       for(Date123 <- 20150716 to 20150730)
+       for(Date123 <- 20150716 to 20150731)
          {
            val currentDay = sc.textFile("hdfs://192.168.86.41:9000/user/wjchen/skypool1/testing_data/dayByday/"+Date123)
              .map(x => x.split(",|\\)|\\(")).map(x=>(x(1),x(2),x(3).toInt,x(4).toInt,x(5).toInt)).cache()

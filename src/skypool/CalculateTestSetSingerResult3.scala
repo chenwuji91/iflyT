@@ -27,7 +27,7 @@ object CalculateTestSetSingerResult3 {
           .map(x=>(x(0),x(1)))
 
        val Date123 = 0;
-       for(Date123 <- 20150716 to 20150730)
+       for(Date123 <- 20150716 to 20150731)
        {
          val songListenTime = sc.textFile("hdfs://192.168.86.41:9000/user/wjchen/skypool1/testing_data/dayBydayFinal/"+Date123)  //读取歌曲次数  前面是歌曲名称  后面接着是次数
            .map(x => x.split(",|\\)|\\(")).map(x=>(x(1),x(2))).cache()

@@ -116,6 +116,8 @@ public class ChessStrategy extends JFrame {
 	}
 }
 
+
+
 class ComputerStrategy{
 	private static int chessNow[][] = new int[18][18];
 	/**
@@ -134,7 +136,7 @@ class ComputerStrategy{
 		{
 			if(p.getColor()==Color.black)
 			{
-				chessNow[p.getX()][p.getY()] = 1;//当前位置有黑子
+				chessNow[p.getX()][p.getY()] = 1;//当前位置有黑子,在当前棋局下, 假设黑子为电脑
 			}
 			else if(p.getColor()==Color.white)
 			{
@@ -180,6 +182,116 @@ class ComputerStrategy{
             }
         }
     }
+
+    /**
+     *
+     * @return 返回某个棋盘状态的评分值
+     */
+    public int evaluate(){
+        int scoreComputer = 0;
+        int scorePlayer = 0;
+        ArrayList<int[]> allTheList = flat();//取得当前状态下面的所有数组集合
+        for(int[] l:allTheList)
+        {
+            int countC = 0;
+            int countP = 0;
+            for(int i = 1;i<l.length-1;i++)
+            {
+                if(l[i]==0)
+                {
+                    if(l[i-1] == 1)
+                    {
+                        scoreComputer += returnScore(countC);
+                        countC = 0;
+                    }
+                    else if(l[i-1] == 2) {
+                        scorePlayer += returnScore(countP);
+                        countP = 0;
+                    }
+                }
+                else if(l[i]==1)
+                {
+                    if(l[i-1] ==1)
+                    {
+                        countC++;
+                    }
+                    else if(l[i-1]==2)
+                    {
+                        scorePlayer +=returnScore(countP-1);
+                        countC = 0;
+                    }
+                    else if(l[i-1]==0)
+                    {
+                        countC = 1;
+                    }
+                }
+                else if(l[i]==2)
+                {
+                    if(l[i-1] == 2)
+                    {
+                        countP++;
+                    }
+                    else if(l[i-1] == 1)
+                    {
+                        scoreComputer += returnScore(countC - 1);
+                    }
+                    else if(l[i-1] == 0)
+                    {
+                        countP = 1;
+                    }
+                }
+            }
+            //处理末尾元素
+            if(l[l.length-1]==1)
+            {
+                if(l[l.length-2] == 2)
+                {
+                    scorePlayer += returnScore(countP -1);
+                }
+                if(l[l.length-2] == 1)
+                {
+                    scoreComputer +=returnScore(countC);
+                }
+            }
+            if(l[l.length-1]==2)
+            {
+                if(l[l.length-2] == 1){
+                    scoreComputer += returnScore(countC-1);
+                }
+                if(l[l.length-2] == 2)
+                {
+                    scorePlayer += returnScore(countP);
+                }
+            }
+            if(l[l.length-1]==0)
+            {
+                scoreComputer += returnScore(countC);
+                scorePlayer += returnScore(countP);
+            }
+
+        }
+        return scoreComputer - scorePlayer;
+    }
+
+    /**
+     * 根据个数返回当前棋子组合的分数
+     * @param count
+     * @return
+     */
+    private int returnScore(int count)
+    {
+        switch(count)
+        {
+            case 0 : return 0;
+            case 1 : return 10;
+            case 2 : return 100;
+            case 3 : return 1000;
+            case 4 : return 10000;
+            case 5 : return 100000;
+        }
+        return 0;
+    }
+
 
     /**
      *
