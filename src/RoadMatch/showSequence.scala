@@ -16,7 +16,7 @@ object showSequence {
 
      def main(args: Array[String]) {
        //      System.setProperty("hadoop.home.dir","D:\\lib\\hadoop")
-            val conf = new SparkConf().setAppName("wjchen")
+            val conf = new SparkConf().setAppName("wj")
             //----------------------公司-----------------------
             .setMaster("spark://192.168.86.41:7077")
             .setJars(List("/Users/chenwuji/Workspace/out/artifacts/wj/wj.jar", "/Users/chenwuji/Documents/lib/spark/iflytek-sequence-0.1.1.jar"))
@@ -28,6 +28,7 @@ object showSequence {
          //val seqRdd = genContMovingTripleSeq(sc,"hdfs://192.168.86.41:9000/user/ibs/result/20160310/*")"hdfs://192.168.86.41:9000/user/wjchen/roadtestResult1.txt"
          // seqRdd.take(100).foreach(println)
        val sequence1 = genContMovingTripleSeq(sc,"hdfs://192.168.86.41:9000/user/wjchen/szf0411.txt")
+//       val szf = sequence1.map()collect()
        sequence1.take(100).foreach(println)
 //       onePoint(sc,sequence1)
       // calculatePairFrequency(sc,sequence1)

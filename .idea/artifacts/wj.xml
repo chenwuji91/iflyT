@@ -7,6 +7,7 @@
       </element>
       <element id="library" level="project" name="iflytek-sequence-0.1.1" />
       <element id="library" level="application" name="iflytek-home-0.1" />
+      <element id="library" level="application" name="xmlbeans-2.6.0" />
     </root>
   </artifact>
 </component>

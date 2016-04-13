@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class Gather {
     public static void main(String args[]) throws Exception {
-        File file = new File("/Users/chenwuji/Documents/skypool/testResult/");
+        File file = new File("/Users/chenwuji/Documents/skypool/allSingerData/skypoolAllSinger");
         String rootpath = file.getAbsolutePath();
         String fileList[] = file.list();
         for (String i : fileList) {
@@ -61,7 +61,7 @@ public class Gather {
                 io.close();
 
             }
-            FileWriter wr = new FileWriter("/Users/chenwuji/Documents/skypool/TestResult.txt", true);
+            FileWriter wr = new FileWriter("/Users/chenwuji/Documents/skypool/SingerByDay2.txt", true);
 
             for (String j : result) {
                 wr.write(j + "\n");

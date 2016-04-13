@@ -78,7 +78,8 @@ public class ProcessRoadTestData {
 
                     System.out.println(date + " "+ xiaoQuID);
                     int xiaoquProcessed = Integer.valueOf(xiaoQuID.substring(0,6))*256+Integer.valueOf(xiaoQuID.substring(6,8));
-                    writeToFile(outputPath+filename+"_"+sheetName,date+","+","+xiaoquProcessed+","+AESEmic+","+Other);
+                    writeToFile(outputPath+filename+"_"+timeDeviation+"_"+sheetName,date+","+","+xiaoquProcessed+","+AESEmic+","+Other);
+                    writeToFile(outputPath+"all",date+","+","+xiaoquProcessed+","+AESEmic+","+Other);
 
                 }
 

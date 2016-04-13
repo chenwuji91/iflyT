@@ -19,6 +19,28 @@ public class Main {
         System.out.println("The F-value is : "+m.calculate());
 
     }
+    private void repair()
+    {
+        System.out.println("数据裁剪修复,请检查数据源");
+//        for(int i = 0;i<testing.size();i++)
+//        {
+//            while(predict.get(i).getDatetime()>testing.get(i).getDatetime())
+//            {
+//                System.out.println("删除记录"+predict.get(i).getSingerId()+" "+predict.get(i).getDatetime());
+//                predict.remove(i);
+//            }
+//        }
+//        for(Singer s:predict)
+//        {
+//            if(s.getDatetime()==20150831||s.getDatetime()==20150731)
+//                predict.remove(s);
+//        }
+        for(int i = 0;i<predict.size();i++)
+        {
+            if(predict.get(i).getDatetime()==20150831)
+                predict.remove(i);
+        }
+    }
 
 
     private void init()
@@ -35,6 +57,8 @@ public class Main {
         if(predict.size()!=testing.size())
         {
             System.out.println("List Error Existing!!Error code:"+predict.size()+","+testing.size());
+            repair();
+            System.out.println("Now:"+predict.size()+","+testing.size());
         }
         if(testing.size()!=Const.singerCount*Const.DayOfPredictDay)
         {

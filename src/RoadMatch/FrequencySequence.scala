@@ -36,23 +36,27 @@ object FrequencySequence {
             print("Begin Program");
          //val seqRdd = genContMovingTripleSeq(sc,"hdfs://192.168.86.41:9000/user/ibs/result/20160310/*")
          // seqRdd.take(100).foreach(println)
-       val sequence1 = genContMovingCISeq(sc,"hdfs://192.168.86.41:9000/user/ibs/result/20160310/*")
+       val sequence1 = genContMovingCISeq(sc,"hdfs://192.168.86.41:9000/user/ibs/result/*/*")
  //      sequence1.take(10).foreach(println)
 //       onePoint(sc,sequence1)
-       calculatePairFrequency(sc,sequence1)
+       calculatePairFrequency(sc,sequence1)//完成次数的统计
        sc.stop()
      }
 
+
+//统计一下序列的频繁项
   def calculatePairFrequency(sc:SparkContext,rDD: RDD[(String, List[List[String]])]):RDD[(Any, Int)] = {
     val pair:RDD[List[Any]] = pairTriGen(sc,rDD)
     val allpair = pair.flatMap(x=>x.toList).map(x=>(x,1))
     val pairCount = allpair.reduceByKey(_+_)
     deleteHDFSDir("hdfs://192.168.86.41:9000/user/wjchen/test12345")
-    pairCount.saveAsTextFile("hdfs://192.168.86.41:9000/user/wjchen/test12345")
+    pairCount.saveAsTextFile("hdfs://192.168.86.41:9000/user/wjchen/countTill0413")
     pairCount
 
   }
 
+
+  //统计的是三个序列的频繁项
   def pairTriGen(sc:SparkContext,rDD: RDD[(String, List[List[String]])]):RDD[List[Any]] = {
     //var list:List[String] = List("")
     val onePoint = rDD.map(x => x._2)
