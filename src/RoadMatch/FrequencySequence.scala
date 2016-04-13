@@ -39,18 +39,27 @@ object FrequencySequence {
        val sequence1 = genContMovingCISeq(sc,"hdfs://192.168.86.41:9000/user/ibs/result/*/*")
  //      sequence1.take(10).foreach(println)
 //       onePoint(sc,sequence1)
-       calculatePairFrequency(sc,sequence1)//完成次数的统计
+       val countResult = calculatePairFrequency(sc,sequence1)//完成次数的统计
+       zhifangtu(sc,countResult)
        sc.stop()
      }
+//统计一下各个次数 为画直方图做一些服务
+def zhifangtu(sc:SparkContext, countResult:RDD[(Any, Int)]):RDD[(Int,Int)] = {
+  val timeRdd = countResult.map(x=>(x._2,x._1)).groupByKey().map(x=>(x._1,x._2.toList.length)).cache()
+  deleteHDFSDir("hdfs://192.168.86.41:9000/user/wjchen/countTill0413ZhiFangTu")
+  timeRdd.saveAsTextFile("hdfs://192.168.86.41:9000/user/wjchen/countTill0413ZhiFangTu")
+  timeRdd
 
+}
 
 //统计一下序列的频繁项
   def calculatePairFrequency(sc:SparkContext,rDD: RDD[(String, List[List[String]])]):RDD[(Any, Int)] = {
     val pair:RDD[List[Any]] = pairTriGen(sc,rDD)
     val allpair = pair.flatMap(x=>x.toList).map(x=>(x,1))
-    val pairCount = allpair.reduceByKey(_+_)
-    deleteHDFSDir("hdfs://192.168.86.41:9000/user/wjchen/test12345")
+    val pairCount = allpair.reduceByKey(_+_).cache()
+    deleteHDFSDir("hdfs://192.168.86.41:9000/user/wjchen/countTill0413")
     pairCount.saveAsTextFile("hdfs://192.168.86.41:9000/user/wjchen/countTill0413")
+
     pairCount
 
   }
