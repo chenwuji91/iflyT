@@ -98,6 +98,7 @@ public class ChessStrategy extends JFrame {
 	public ChessBoard getChessBoard() {
 		return chessBoard;
 	}
+
 	public Point WhiteNextStep(Point[] chessList){
 		/**
 		 * 白子策略
@@ -120,6 +121,25 @@ public class ChessStrategy extends JFrame {
 
 class ComputerStrategy{
 	private static int chessNow[][] = new int[18][18];
+    /**
+     * 尝试开始进行极大极小的走棋 作为方法调度的入口  接收策略的调度请求,返回走棋方案
+     */
+    public void maxAndMin(Point[] chesslist,int deep)
+    {
+        refreshChess(chesslist);
+        gen(deep);
+        ArrayList<Point> availablePoint = getAvailablePoint();
+        int initalScore = evaluate();
+        System.out.println("初始状态下面的得分是:"+initalScore);
+        for(int i = 0;i < availablePoint.size();i++)
+        {
+
+        }
+
+
+    }
+    public int max()
+
 	/**
 	 * 将棋盘转换刷新为便于检索的形式
 	 */
@@ -147,20 +167,46 @@ class ComputerStrategy{
 
 	/**
 	 *
-	 * @param chesslist
+	 * @param
 	 * @return 所有可以落子的位置
 	 * 搜索某一深度的一些空位，如果周围一定的范围内有棋子，认为这个位置是一个可行的位置
 	 */
-	public Point[] gen(Point[] chesslist, int deep){//默认设定deep为2
-
+	public void gen(int deep){//默认设定deep为2
+        if(deep!=2)
+        {
+            System.out.println("检查参数!");
+            System.exit(1);
+        }
 		Point[] availablePoint = new Point[18*18];
-		int countAvailable = 0;
-		refreshChess(chesslist);//刷新当前棋盘棋子状态
+//		int countAvailable = 0;
+//		refreshChess(chesslist);//刷新当前棋盘棋子状态
         neighbour(3);//第一次搜索棋盘上的可用区域,将可以放棋子的地方标记为3
         neighbour(4);//第二次搜索棋盘上面可以放棋子的区域,将可以放棋子的区域标记为4
-
-		return chesslist;
 	}
+    /**
+     * 检查生成的点,并返回可以走的点的集合
+     */
+    public ArrayList<Point> getAvailablePoint() {//默认设定deep为2
+        ArrayList<Point> availablePoint = new ArrayList<Point>();
+        for (int i = 0; i < 18; i++)
+            for (int j = 0; j < 18; j++) {
+                if (chessNow[i][j] == 3) {
+                    availablePoint.add(new Point(i, j, Color.blue));
+                    chessNow[i][j] = 0;
+                }
+                if (chessNow[i][j] == 4) {
+                    availablePoint.add(new Point(i, j, Color.blue));
+                    chessNow[i][j] = 0;
+                }
+
+            }
+        return availablePoint;
+    }
+
+    /**
+     * 找邻居
+     * @param status
+     */
     private void neighbour(int status)
     {
         for(int i = 0;i< 18;i++)
