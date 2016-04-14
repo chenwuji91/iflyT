@@ -38,8 +38,11 @@ object TongJiBenDiEmicChangZhuPiPei {
      }
 
       def tongjiIntersection(sparkContext: SparkContext,mapping: RDD[String],localEmic: RDD[String]):RDD[String] = {
-        val notmatched = mapping.subtract(localEmic);
-        notmatched
+//        val notmatched = localEmic.subtract(mapping);
+//        notmatched
+        val matched = localEmic.intersection(mapping);
+        val notM = localEmic.subtract(matched)
+        notM
       }
 
   def deleteHDFSDir(hdfsPathStr: String): Unit = {

@@ -104,8 +104,8 @@ public class ChessStrategy extends JFrame {
 		 * 白子策略
 		 */
 		//return new Point(9,9,Color.BLACK);
-		return null;//修改返回下一步坐标点
-     //   return new ComputerStrategy().maxAndMin(chessList,2);
+		//return null;//修改返回下一步坐标点
+        return new ComputerStrategy().maxAndMin(chessList,2);
 	}
 
 	public Point BlackNextStep(Point[] chesslistB) {//基于当前棋盘上面的子  寻找下一步走的方法  返回一个Point点
@@ -122,6 +122,33 @@ public class ChessStrategy extends JFrame {
 
 
 class ComputerStrategy{
+    /**
+     * 测试函数功能
+     * @param args
+     */
+    public static void main(String args[])
+    {
+        /*生成棋子*/
+        Point[] chesslist = new Point[18*18];
+        chesslist[1] = new Point(1,1,Color.black);
+        chesslist[2] = new Point(2,2,Color.black);
+        chesslist[3] = new Point(3,3,Color.black);
+        chesslist[4] = new Point(2,1,Color.white);
+        chesslist[5] = new Point(1,3,Color.white);
+        chesslist[6] = new Point(4,2,Color.white);
+        /*测试空位函数*/
+        ComputerStrategy test = new ComputerStrategy();
+        test.refreshChess(chesslist);
+        for(int i = 0;i<18;i++)
+        {
+            System.out.println("");
+            for(int j = 0;j<18;j++)
+            {
+                System.out.print(chessNow[i][j]);
+            }
+        }
+
+    }
 	private static int chessNow[][] = new int[18][18];
     /**
      * 尝试开始进行极大极小的走棋 作为方法调度的入口  接收策略的调度请求,返回走棋方案

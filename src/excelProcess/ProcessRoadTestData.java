@@ -18,8 +18,8 @@ import java.util.Iterator;
  */
 public class ProcessRoadTestData {
 
-    public static final String path1 = "/Users/chenwuji/Downloads/芜湖市政府/";
-    public static final String path2 = "/Users/chenwuji/Downloads/安师大南校区/";
+    public static final String path2 = "/Users/chenwuji/Downloads/芜湖市政府/";
+    public static final String path1 = "/Users/chenwuji/Downloads/安师大南校区/";
     public static final String outputPath = "/Users/chenwuji/Documents/RoadTest/";
     public static final String AESEmic = "QoUs940IZkYpoNdQlSEqkw==";
     public static final String Other = "Service_Req,4G";
@@ -52,7 +52,7 @@ public class ProcessRoadTestData {
             XSSFSheet sheet = (XSSFSheet)it.next();
             String sheetName = sheet.getSheetName();
        //     System.out.println("输出1"+);
-            for(int i = 4; i< sheet.getLastRowNum();i++)
+            for(int i = 4; i< sheet.getLastRowNum()+1;i++)
             {
 
                 XSSFRow row = sheet.getRow(i);
@@ -78,7 +78,7 @@ public class ProcessRoadTestData {
 
                     System.out.println(date + " "+ xiaoQuID);
                     int xiaoquProcessed = Integer.valueOf(xiaoQuID.substring(0,6))*256+Integer.valueOf(xiaoQuID.substring(6,8));
-                    writeToFile(outputPath+filename+"_"+timeDeviation+"_"+sheetName,date+","+","+xiaoquProcessed+","+AESEmic+","+Other);
+                    writeToFile(outputPath+filename+"_"+date.substring(0,8)+"_"+timeDeviation+"_"+sheetName,date+","+","+xiaoquProcessed+","+AESEmic+","+Other);
                     writeToFile(outputPath+"all",date+","+","+xiaoquProcessed+","+AESEmic+","+Other);
 
                 }
