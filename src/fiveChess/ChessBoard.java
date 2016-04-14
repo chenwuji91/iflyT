@@ -128,7 +128,7 @@ public class ChessBoard extends JPanel implements MouseListener {
 
 		paintChess(g);
 	}
-	public  Point[] addChess(int x,int y)
+	public Point[] addChess(int x,int y)
 	{
 
 		//游戏结束时，不再能下
@@ -172,7 +172,6 @@ public class ChessBoard extends JPanel implements MouseListener {
 			return chessList;
 		}
 		return null;
-
 
 	}
 	public  Point[] BlackAddChess(int x,int y){

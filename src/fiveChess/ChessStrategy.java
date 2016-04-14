@@ -104,8 +104,8 @@ public class ChessStrategy extends JFrame {
 		 * 白子策略
 		 */
 		//return new Point(9,9,Color.BLACK);
-		//return null;//修改返回下一步坐标点
-        return new ComputerStrategy().maxAndMin(chessList,2);
+		return null;//修改返回下一步坐标点
+     //   return new ComputerStrategy().maxAndMin(chessList,2);
 	}
 
 	public Point BlackNextStep(Point[] chesslistB) {//基于当前棋盘上面的子  寻找下一步走的方法  返回一个Point点
