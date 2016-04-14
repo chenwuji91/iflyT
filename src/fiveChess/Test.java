@@ -44,6 +44,7 @@ public class Test {
 			/**
 			 * 白子落
 			 */
+
 			NextStep=f.WhiteNextStep(chesslistB);
 			stepx=NextStep.getX();
 			stepy=NextStep.getY();

@@ -103,8 +103,9 @@ public class ChessStrategy extends JFrame {
 		/**
 		 * 白子策略
 		 */
-		return new Point(9,9,Color.BLACK);
+		//return new Point(9,9,Color.BLACK);
 		//return null;//修改返回下一步坐标点
+        return new ComputerStrategy().maxAndMin(chessList,2);
 	}
 
 	public Point BlackNextStep(Point[] chesslistB) {//基于当前棋盘上面的子  寻找下一步走的方法  返回一个Point点
@@ -113,7 +114,8 @@ public class ChessStrategy extends JFrame {
 		 * 黑子策略
 		 */
 		//return new Point(8,8,Color.BLACK);
-		return null;//修改返回下一步坐标点
+		//return null;//修改返回下一步坐标点
+        return new ComputerStrategy().maxAndMin(chesslistB,2);
 	}
 }
 
@@ -123,22 +125,46 @@ class ComputerStrategy{
 	private static int chessNow[][] = new int[18][18];
     /**
      * 尝试开始进行极大极小的走棋 作为方法调度的入口  接收策略的调度请求,返回走棋方案
+     * 假设黑色的棋子是电脑
      */
-    public void maxAndMin(Point[] chesslist,int deep)
+    public Point maxAndMin(Point[] chesslist,int deep)
     {
         refreshChess(chesslist);
         gen(deep);
         ArrayList<Point> availablePoint = getAvailablePoint();
         int initalScore = evaluate();
         System.out.println("初始状态下面的得分是:"+initalScore);
+        System.out.println("候选点集" + availablePoint.size());
+        int scoreMax = initalScore;
+        int maxX = 5;int maxY = 5;
         for(int i = 0;i < availablePoint.size();i++)
         {
-
+            int x = availablePoint.get(i).getX();
+            int y = availablePoint.get(i).getY();
+            if(chessNow[x][y]!=0)
+            {
+                System.out.println("Error!(maxAndMin)");
+                System.exit(1);
+            }
+            chessNow[x][y] = 1;
+            int score = evaluate();
+            if(score>=scoreMax);
+            {
+                scoreMax = score;
+                maxX = x;
+                maxY = y;
+            }
+            chessNow[x][y] = 0;
         }
+        System.out.println("走的棋子是"+":"+maxX+" "+maxY);
+        return new Point(maxX,maxY,Color.black);
 
 
     }
     public int max()
+    {
+        return 0;
+    }
 
 	/**
 	 * 将棋盘转换刷新为便于检索的形式
@@ -152,8 +178,13 @@ class ComputerStrategy{
 				chessNow[i][j] = 0;//表示当前位置为空
 			}
 		}
+        if(chesslist==null||chesslist.length==0)
+            return;
+        //System.out.println(chesslist.length+" "+chesslist[0]);
 		for(Point p:chesslist)
 		{
+            if(p==null)
+                continue;
 			if(p.getColor()==Color.black)
 			{
 				chessNow[p.getX()][p.getY()] = 1;//当前位置有黑子,在当前棋局下, 假设黑子为电脑
@@ -373,10 +404,12 @@ class ComputerStrategy{
         {
             int temp[] = new int[18-i];
             int temp2[] = new int[18-i];
-            for(int j = 17;j > 4;j--)
+            for(int j = 0;j < 18-i ;j++)
             {
-                temp[j] = chessNow[17-j+i][j];
-                temp2[j] = chessNow[17-j][j-i];
+                temp[j] = chessNow[17-j-i][j];
+                temp2[j] = chessNow[17-j][j+i];
+//                temp[j] = chessNow[17-j+i][j];
+//                temp2[j] = chessNow[17-j][j-i];
 
             }
             singleList.add(temp);
