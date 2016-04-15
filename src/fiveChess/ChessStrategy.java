@@ -105,7 +105,7 @@ public class ChessStrategy extends JFrame {
 		 */
 		//return new Point(9,9,Color.BLACK);
 		//return null;//修改返回下一步坐标点
-        return new ComputerStrategy().maxAndMin(chessList,2);
+        return new ComputerStrategy().maxAndMin(chessList,2,2);
 	}
 
 	public Point BlackNextStep(Point[] chesslistB) {//基于当前棋盘上面的子  寻找下一步走的方法  返回一个Point点
@@ -115,7 +115,7 @@ public class ChessStrategy extends JFrame {
 		 */
 		//return new Point(8,8,Color.BLACK);
 		//return null;//修改返回下一步坐标点
-        return new ComputerStrategy().maxAndMin(chesslistB,2);
+        return new ComputerStrategy().maxAndMin(chesslistB,2,1);
 	}
 }
 
@@ -132,29 +132,44 @@ class ComputerStrategy{
         Point[] chesslist = new Point[18*18];
         chesslist[1] = new Point(1,1,Color.black);
         chesslist[2] = new Point(2,2,Color.black);
-        chesslist[3] = new Point(3,3,Color.black);
-        chesslist[4] = new Point(2,1,Color.white);
+//        chesslist[3] = new Point(3,3,Color.black);
+//        chesslist[4] = new Point(2,1,Color.white);
         chesslist[5] = new Point(1,3,Color.white);
-        chesslist[6] = new Point(4,2,Color.white);
+  //      chesslist[6] = new Point(4,2,Color.white);
+        chesslist[7] = new Point(1,2,Color.white);
         /*测试空位函数*/
         ComputerStrategy test = new ComputerStrategy();
         test.refreshChess(chesslist);
         for(int i = 0;i<18;i++)
         {
-            System.out.println("");
+
             for(int j = 0;j<18;j++)
             {
                 System.out.print(chessNow[i][j]);
             }
+            System.out.println("");
         }
+        /*测试程序刷新位置通过*/
+        /*测试找空位程序*/
+        test.gen(2);
+        ArrayList<Point> availablePoint = test.getAvailablePoint();
+        System.out.println(availablePoint.size());
+        /*空闲位置测试完毕*/
+        /*测试分数评价系统*/
+        System.out.println(test.evaluate());
+        /*分数测评系统通过*/
+
+
 
     }
 	private static int chessNow[][] = new int[18][18];
+    private boolean first = true;
     /**
      * 尝试开始进行极大极小的走棋 作为方法调度的入口  接收策略的调度请求,返回走棋方案
      * 假设黑色的棋子是电脑
      */
-    public Point maxAndMin(Point[] chesslist,int deep)
+
+    public Point maxAndMin(Point[] chesslist,int deep,int type)//如果是type=1表示当前是黑棋策略  type=2表示当前是白旗策略
     {
         refreshChess(chesslist);
         gen(deep);
@@ -163,7 +178,24 @@ class ComputerStrategy{
         System.out.println("初始状态下面的得分是:"+initalScore);
         System.out.println("候选点集" + availablePoint.size());
         int scoreMax = initalScore;
-        int maxX = 5;int maxY = 5;
+//        int maxX = 5;int maxY = 5;
+        class HighScore{
+            int xH;
+            int yH;
+            int score;
+            public HighScore(int x, int y, int score) {
+                this.xH = x;
+                this.yH = y;
+                this.score = score;
+            }
+        }
+        ArrayList<HighScore> scoreList = new ArrayList<>();//创建集合保存高分集合
+//        if(first)
+//        {
+//            scoreList.add(new HighScore(5,5,0));
+//            System.out.println("hahaha");
+//            first = false;
+//        }
         for(int i = 0;i < availablePoint.size();i++)
         {
             int x = availablePoint.get(i).getX();
@@ -173,21 +205,56 @@ class ComputerStrategy{
                 System.out.println("Error!(maxAndMin)");
                 System.exit(1);
             }
-            chessNow[x][y] = 1;
+            chessNow[x][y] = type;//当前走的子 1是表示黑子  2表示白子
             int score = evaluate();
-            if(score>=scoreMax);
+
+            switch(type)
             {
-                scoreMax = score;
-                maxX = x;
-                maxY = y;
+                case 1:
+                    if(score>=scoreMax&&type==1)
+                        {
+                            if(score>scoreMax)
+                                scoreList.clear();
+                            scoreList.add(new HighScore(x,y,score));
+                            System.out.println("当前的分为"+score+",之前最高分:"+scoreMax);
+                            scoreMax = score;
+
+                            break;
+                        }
+                case 2:
+                    if(score<=scoreMax&&type==2)
+                        {
+                            if(score<scoreMax)
+                                scoreList.clear();
+                            scoreList.add(new HighScore(x,y,score));
+                            System.out.println("当前的分为"+score+",之前最低分:"+scoreMax);
+                            scoreMax = score;
+                            break;
+                        }
+
             }
             chessNow[x][y] = 0;
         }
-        System.out.println("走的棋子是"+":"+maxX+" "+maxY);
-        return new Point(maxX,maxY,Color.black);
+        if(scoreList.size()==0)
+            return null;
+        if(type == 1)
+        {
+            HighScore p = scoreList.get((int)(Math.random()*(double)(scoreList.size())));
+            System.out.println("Hei走的棋子是"+":"+p.xH+" "+p.yH+" "+p.score);
+            return new Point(p.xH,p.yH,Color.black);
+        }
 
+        else if(type == 2)
+        {
+            HighScore p = scoreList.get((int)(Math.random()*(double)(scoreList.size())));
+            System.out.println("Bai走的棋子是"+":"+p.xH+" "+p.yH+" "+p.score);
+            return new Point(p.xH,p.yH,Color.white);
+        }
 
+        return null;
     }
+
+
     public int max()
     {
         return 0;
@@ -196,6 +263,8 @@ class ComputerStrategy{
 	/**
 	 * 将棋盘转换刷新为便于检索的形式
 	 */
+
+
 	public void refreshChess(Point[] chesslist)
 	{
 		for(int i=0;i<18;i++)
@@ -235,12 +304,54 @@ class ComputerStrategy{
             System.out.println("检查参数!");
             System.exit(1);
         }
-		Point[] availablePoint = new Point[18*18];
+		//Point[] availablePoint = new Point[18*18];
 //		int countAvailable = 0;
 //		refreshChess(chesslist);//刷新当前棋盘棋子状态
         neighbour(3);//第一次搜索棋盘上的可用区域,将可以放棋子的地方标记为3
         neighbour(4);//第二次搜索棋盘上面可以放棋子的区域,将可以放棋子的区域标记为4
 	}
+    /**
+     * 找邻居
+     * @param status
+     */
+    private void neighbour(int status)
+    {
+        for(int i = 0;i< 18;i++)
+        {
+            for(int j = 0;j < 18 ; j++)
+            {
+                if(chessNow[i][j]==0)
+                {
+
+                    if((i-1>=0)&&(chessNow[i-1][j]!=0)&&(chessNow[i-1][j]!=status))
+                    {
+                   //     System.out.println("设置了一个棋子1:"+i+" "+j);
+                        chessNow[i][j] = status;//  设置为指定的状态位
+                    }
+
+                    if((i+1<18)&&(chessNow[i+1][j]!=0)&&(chessNow[i+1][j]!=status))
+                    {
+                        chessNow[i][j] = status;//
+                   //     System.out.println("设置了一个棋子2:"+i+" "+j);
+                    }
+
+                    if((j-1>=0)&&(chessNow[i][j-1]!=0)&&(chessNow[i][j-1]!=status))
+                    {
+                        chessNow[i][j] = status;//
+                    //    System.out.println("设置了一个棋子3:"+i+" "+j);
+                    }
+
+                    if((j+1<18)&&(chessNow[i][j+1]!=0)&&(chessNow[i][j+1]!=status))
+                    {
+                        chessNow[i][j] = status;//
+                     //   System.out.println("设置了一个棋子4:"+i+" "+j);
+                    }
+
+                }
+
+            }
+        }
+    }
     /**
      * 检查生成的点,并返回可以走的点的集合
      */
@@ -261,31 +372,7 @@ class ComputerStrategy{
         return availablePoint;
     }
 
-    /**
-     * 找邻居
-     * @param status
-     */
-    private void neighbour(int status)
-    {
-        for(int i = 0;i< 18;i++)
-        {
-            for(int j = 0;j < 18 ; j++)
-            {
-                if(chessNow[i][j]==0)
-                {
-                    if(i-1>=0&&chessNow[i-1][j]!=0)
-                        chessNow[i][j] = status;//  设置为指定的状态位
-                    if(i+1<18&&chessNow[i+1][j]!=0)
-                        chessNow[i][j] = status;//
-                    if(j-1>=0&&chessNow[i][j-1]!=0)
-                        chessNow[i][j] = status;//
-                    if(j+1<18&&chessNow[i][j+1]!=0)
-                        chessNow[i][j] = status;//
-                }
 
-            }
-        }
-    }
 
     /**
      *
@@ -424,6 +511,7 @@ class ComputerStrategy{
                 temp[j]= chessNow[j][j+i];
                 temp2[j] = chessNow[j+i][j];
             }
+            if(i!=0)
             singleList.add(temp);
             singleList.add(temp2);
         }
@@ -439,6 +527,7 @@ class ComputerStrategy{
 //                temp2[j] = chessNow[17-j][j-i];
 
             }
+            if(i!=0)
             singleList.add(temp);
             singleList.add(temp2);
         }

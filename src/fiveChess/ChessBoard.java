@@ -160,6 +160,14 @@ public class ChessBoard extends JPanel implements MouseListener {
 
 		//如果胜出则给出提示信息，不能继续下棋
 
+
+		//新加入的判断
+			//将鼠标点击的坐标位置转换成网格索引
+		xIndex=x;
+		yIndex=y;
+
+
+
 		if(isWin()){
 			String msg=String.format("恭喜，%s赢了！", colorName);
 			JOptionPane.showMessageDialog(this, msg);
@@ -168,7 +176,7 @@ public class ChessBoard extends JPanel implements MouseListener {
 		else
 		{
 			isBlack=!isBlack;  //黑白子反转
-			System.out.println("chessList");
+			//System.out.println("chessList");
 			return chessList;
 		}
 		return null;

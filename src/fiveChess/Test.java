@@ -1,5 +1,7 @@
 package fiveChess;
 
+import java.awt.*;
+import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -30,12 +32,19 @@ public class Test {
 		/**
 		 *
 		 */
-
+		boolean first = true;
 		while(true){
 			/**
 			 * 首先黑子先落子
 			 */
 			NextStep=f.BlackNextStep(chesslistW);
+			if(first)
+			{
+				NextStep = new Point((int)(Math.random()*(float)18),(int)(Math.random()*(float)18), Color.black);
+				first = false;
+				System.out.println("fucked");
+			}
+			if(NextStep == null)break;
 			stepx=NextStep.getX();
 			stepy=NextStep.getY();
 
@@ -44,11 +53,14 @@ public class Test {
 			/**
 			 * 白子落
 			 */
-
+			Thread.sleep(1000);
+//
 			NextStep=f.WhiteNextStep(chesslistB);
+			if(NextStep == null)break;
 			stepx=NextStep.getX();
 			stepy=NextStep.getY();
 			chesslistW=f.getChessBoard().WhiteAddChess(stepx,stepy);
+//			new ChessBoard().mouseClicked(MouseEvent e);
 
 		}
 
