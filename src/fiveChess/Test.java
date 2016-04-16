@@ -40,7 +40,8 @@ public class Test {
 			NextStep=f.BlackNextStep(chesslistW);
 			if(first)
 			{
-				NextStep = new Point((int)(Math.random()*(float)18),(int)(Math.random()*(float)18), Color.black);
+				//NextStep = new Point((int)(Math.random()*(float)18),(int)(Math.random()*(float)18), Color.black);
+				NextStep = new Point(9,9, Color.black);
 				first = false;
 				System.out.println("fucked");
 			}

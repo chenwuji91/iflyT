@@ -11,6 +11,10 @@ public interface Const {
 //    public static final String PredictFilePath = "/Users/chenwuji/Documents/skypool/TestResult2.txt";
     public static final String TestingFilePath = "/Users/chenwuji/Documents/skypool/TestResult2.txt";
 
+    public static final String TestingFilePathBySong = "/Users/chenwuji/Documents/skypool/TestResult2.txt";
+    public static final String PredictFilePathBySong = "/Users/chenwuji/Documents/skypool/TestResult2.txt";
+    public static final String SongList = "/Users/chenwuji/Documents/skypool/TestResult2.txt";
+
 
 
 

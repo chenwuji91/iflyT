@@ -156,7 +156,7 @@ class ComputerStrategy{
         System.out.println(availablePoint.size());
         /*空闲位置测试完毕*/
         /*测试分数评价系统*/
-        System.out.println(test.evaluate());
+        System.out.println(test.evaluate(1));
         /*分数测评系统通过*/
 
 
@@ -174,7 +174,7 @@ class ComputerStrategy{
         refreshChess(chesslist);
         gen(deep);
         ArrayList<Point> availablePoint = getAvailablePoint();
-        int initalScore = evaluate();
+        int initalScore = evaluate(type);
         System.out.println("初始状态下面的得分是:"+initalScore);
         System.out.println("候选点集" + availablePoint.size());
         int scoreMax = initalScore;
@@ -206,12 +206,12 @@ class ComputerStrategy{
                 System.exit(1);
             }
             chessNow[x][y] = type;//当前走的子 1是表示黑子  2表示白子
-            int score = evaluate();
+            int score = evaluate(type);
 
-            switch(type)
-            {
-                case 1:
-                    if(score>=scoreMax&&type==1)
+ //           switch(type)
+ //           {
+//                case 1:
+                    if(score>=scoreMax)//&&type==1
                         {
                             if(score>scoreMax)
                                 scoreList.clear();
@@ -219,20 +219,20 @@ class ComputerStrategy{
                             System.out.println("当前的分为"+score+",之前最高分:"+scoreMax);
                             scoreMax = score;
 
-                            break;
+                          //  break;
                         }
-                case 2:
-                    if(score<=scoreMax&&type==2)
-                        {
-                            if(score<scoreMax)
-                                scoreList.clear();
-                            scoreList.add(new HighScore(x,y,score));
-                            System.out.println("当前的分为"+score+",之前最低分:"+scoreMax);
-                            scoreMax = score;
-                            break;
-                        }
+//                case 2:
+//                    if(score<=scoreMax&&type==2)
+//                        {
+//                            if(score<scoreMax)
+//                                scoreList.clear();
+//                            scoreList.add(new HighScore(x,y,score));
+//                            System.out.println("当前的分为"+score+",之前最低分:"+scoreMax);
+//                            scoreMax = score;
+//                            break;
+//                        }
 
-            }
+ //           }
             chessNow[x][y] = 0;
         }
         if(scoreList.size()==0)
@@ -378,7 +378,7 @@ class ComputerStrategy{
      *
      * @return 返回某个棋盘状态的评分值
      */
-    public int evaluate(){
+    public int evaluate(int type){
         int scoreComputer = 0;
         int scorePlayer = 0;
         ArrayList<int[]> allTheList = flat();//取得当前状态下面的所有数组集合
@@ -461,7 +461,9 @@ class ComputerStrategy{
             }
 
         }
-        return scoreComputer - scorePlayer;
+        if(type == 1)
+            return scoreComputer - scorePlayer;
+        else return scorePlayer-scoreComputer;
     }
 
     /**
@@ -476,9 +478,9 @@ class ComputerStrategy{
             case 0 : return 0;
             case 1 : return 10;
             case 2 : return 100;
-            case 3 : return 1000;
-            case 4 : return 10000;
-            case 5 : return 100000;
+            case 3 : return 10000;
+            case 4 : return 20000;
+            case 5 : return 10000000;
         }
         return 0;
     }

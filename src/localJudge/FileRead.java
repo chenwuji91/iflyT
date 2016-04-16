@@ -8,6 +8,24 @@ import java.util.ArrayList;
  */
 public class FileRead {
 
+    public static ArrayList<Singer> loadSongList()
+    {
+        ArrayList<Singer> predictList = FileRead.loadFile(Const.SongList);
+        return predictList;
+    }
+
+    public static ArrayList<Singer> loadPredictingBySong()
+    {
+        ArrayList<Singer> predictList = FileRead.loadFile(Const.PredictFilePathBySong);
+        return predictList;
+    }
+    public static ArrayList<Singer> loadTestingBySong()
+    {
+        ArrayList<Singer> testingList = FileRead.loadFile(Const.TestingFilePathBySong);
+        return testingList;
+
+    }
+
     public static ArrayList<Singer> loadPredicting()
     {
         ArrayList<Singer> predictList = FileRead.loadFile(Const.PredictFilePath);
