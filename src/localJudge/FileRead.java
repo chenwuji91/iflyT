@@ -66,7 +66,7 @@ public class FileRead {
             }
         }
         if(singerList.size()!= Const.DayOfPredictDay*Const.singerCount) {
-            System.out.println("Warning! Singer List Error! But go on judging");
+            System.out.println("非正式测评");
         }
         return singerList;
     }

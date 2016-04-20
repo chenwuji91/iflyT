@@ -49,7 +49,11 @@ public class Main {
         testing = FileRead.loadTesting();
         Collections.sort(predict);
         Collections.sort(testing);
-        System.out.println("完成初始化");
+//        for(int i = 0;i<predict.size();i++)
+//        {
+//            System.out.println(predict.get(i).getSingerId()+""+predict.get(i).getDatetime());
+//        }
+//        System.out.println("完成初始化");
 
     }
     private void checkLegal()

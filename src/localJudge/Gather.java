@@ -17,7 +17,8 @@ import java.util.List;
 public class Gather {
     public static void main(String args[]) throws Exception {
 //        File file = new File("/Users/chenwuji/Documents/skypool/allSingerData/skypoolAllSinger");
-        File file = new File("/Users/chenwuji/Documents/skypool/dayBydayFinal/AllResult/");
+        System.out.println("Begin");
+        File file = new File("/Users/chenwuji/Documents/skypool/dayBydayFinal/");
 //        /Users/chenwuji/Documents/skypool/SongTestSet
         String rootpath = file.getAbsolutePath();
         String fileList[] = file.list();
@@ -25,7 +26,7 @@ public class Gather {
             File f = new File(rootpath + File.separator + i);
             if (f.isDirectory()) {
                 writeOneFile(rootpath + File.separator + i,i);
-             //   System.out.println(i);
+                System.out.println(i);
             }
         }
 
@@ -58,12 +59,12 @@ public class Gather {
                         break;
                     count++;
                     line = line.substring(1, line.length() - 1);
-                    result.add(line.split(",")[0] + "," + line.split(",")[1] + "," + date);
+                    result.add(line.split(",")[0] + "," + line.split(",")[1] + "," + "20150832");
                 }
                 io.close();
 
             }
-            FileWriter wr = new FileWriter("/Users/chenwuji/Documents/skypool/SongTestSet2.txt", true);
+            FileWriter wr = new FileWriter("/Users/chenwuji/Documents/skypool/SongTestSet3.txt", true);
 
             for (String j : result) {
                 wr.write(j + "\n");
