@@ -29,7 +29,8 @@ object CalculateTestSetSingerResult2 {
        for(Date123 <- 20150701 to 20150715)
          {
            val currentDay = sc.textFile("hdfs://192.168.86.41:9000/user/wjchen/skypool1/testing_data/dayByday/"+Date123)
-             .map(x => x.split(",|\\)|\\(")).map(x=>(x(1),x(2),x(3).toInt,x(4).toInt,x(5).toInt)).cache()
+             .map(x => x.split(",|\\)|\\(")).map(x=>(x(1),x(2),x(3).toInt,x(4).toInt,x(5).toInt)).filter(x=>x._4==1).cache()
+
            val songCount = currentDay.groupBy(_._2).map(x=>(x._1,x._2.toList.length))
 //           aggregated.aggregate(songCount)
            deleteHDFSDir("hdfs://192.168.86.41:9000/user/wjchen/skypool1/testing_data/dayBydayFinal/"+Date123);
@@ -39,7 +40,7 @@ object CalculateTestSetSingerResult2 {
        for(Date123 <- 20150301 to 20150331)
        {
          val currentDay = sc.textFile("hdfs://192.168.86.41:9000/user/wjchen/skypool1/testing_data/dayByday/"+Date123)
-           .map(x => x.split(",|\\)|\\(")).map(x=>(x(1),x(2),x(3).toInt,x(4).toInt,x(5).toInt)).cache()
+           .map(x => x.split(",|\\)|\\(")).map(x=>(x(1),x(2),x(3).toInt,x(4).toInt,x(5).toInt)).filter(x=>x._4==1).cache()
          val songCount = currentDay.groupBy(_._2).map(x=>(x._1,x._2.toList.length))
          //         aggregated.aggregate(songCount)
          deleteHDFSDir("hdfs://192.168.86.41:9000/user/wjchen/skypool1/testing_data/dayBydayFinal/"+Date123);
@@ -48,7 +49,7 @@ object CalculateTestSetSingerResult2 {
        for(Date123 <- 20150401 to 20150430)
        {
          val currentDay = sc.textFile("hdfs://192.168.86.41:9000/user/wjchen/skypool1/testing_data/dayByday/"+Date123)
-           .map(x => x.split(",|\\)|\\(")).map(x=>(x(1),x(2),x(3).toInt,x(4).toInt,x(5).toInt)).cache()
+           .map(x => x.split(",|\\)|\\(")).map(x=>(x(1),x(2),x(3).toInt,x(4).toInt,x(5).toInt)).filter(x=>x._4==1).cache()
          val songCount = currentDay.groupBy(_._2).map(x=>(x._1,x._2.toList.length))
          //         aggregated.aggregate(songCount)
          deleteHDFSDir("hdfs://192.168.86.41:9000/user/wjchen/skypool1/testing_data/dayBydayFinal/"+Date123);
@@ -57,7 +58,7 @@ object CalculateTestSetSingerResult2 {
        for(Date123 <- 20150501 to 20150531)
        {
          val currentDay = sc.textFile("hdfs://192.168.86.41:9000/user/wjchen/skypool1/testing_data/dayByday/"+Date123)
-           .map(x => x.split(",|\\)|\\(")).map(x=>(x(1),x(2),x(3).toInt,x(4).toInt,x(5).toInt)).cache()
+           .map(x => x.split(",|\\)|\\(")).map(x=>(x(1),x(2),x(3).toInt,x(4).toInt,x(5).toInt)).filter(x=>x._4==1).cache()
          val songCount = currentDay.groupBy(_._2).map(x=>(x._1,x._2.toList.length))
          //         aggregated.aggregate(songCount)
          deleteHDFSDir("hdfs://192.168.86.41:9000/user/wjchen/skypool1/testing_data/dayBydayFinal/"+Date123);
@@ -66,7 +67,7 @@ object CalculateTestSetSingerResult2 {
        for(Date123 <- 20150601 to 20150630)
        {
          val currentDay = sc.textFile("hdfs://192.168.86.41:9000/user/wjchen/skypool1/testing_data/dayByday/"+Date123)
-           .map(x => x.split(",|\\)|\\(")).map(x=>(x(1),x(2),x(3).toInt,x(4).toInt,x(5).toInt)).cache()
+           .map(x => x.split(",|\\)|\\(")).map(x=>(x(1),x(2),x(3).toInt,x(4).toInt,x(5).toInt)).filter(x=>x._4==1).cache()
          val songCount = currentDay.groupBy(_._2).map(x=>(x._1,x._2.toList.length))
          //         aggregated.aggregate(songCount)
          deleteHDFSDir("hdfs://192.168.86.41:9000/user/wjchen/skypool1/testing_data/dayBydayFinal/"+Date123);

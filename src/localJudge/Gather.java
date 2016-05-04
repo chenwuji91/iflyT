@@ -3,9 +3,7 @@ package localJudge;
 import encreption.AESSecurityUtil;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by chenwuji on 16/3/29.
@@ -18,7 +16,7 @@ public class Gather {
     public static void main(String args[]) throws Exception {
 //        File file = new File("/Users/chenwuji/Documents/skypool/allSingerData/skypoolAllSinger");
         System.out.println("Begin");
-        File file = new File("/Users/chenwuji/Documents/skypool/dayBydayFinal/");
+        File file = new File("/Users/chenwuji/Documents/skypool/SongTrainData/");
 //        /Users/chenwuji/Documents/skypool/SongTestSet
         String rootpath = file.getAbsolutePath();
         String fileList[] = file.list();
@@ -26,7 +24,8 @@ public class Gather {
             File f = new File(rootpath + File.separator + i);
             if (f.isDirectory()) {
                 writeOneFile(rootpath + File.separator + i,i);
-                System.out.println(i);
+//                System.out.println(i);
+//                System.out.println(i);
             }
         }
 
@@ -34,6 +33,7 @@ public class Gather {
     }
 
     private static  void writeOneFile(String path, String date) throws Exception{
+        HashMap<String,String> resultWithNoRepeat = new HashMap<>();
         int count = 0;
         File file = new File(path);
         String rootpath = file.getAbsolutePath();
@@ -46,7 +46,8 @@ public class Gather {
         }
         for (String i : filelist2) {
            // System.out.println(i);
-            List<String> result = new ArrayList<String>();
+//            List<String> result = new ArrayList<String>();
+
             File f = new File(rootpath + "/" + i);
             if (f.isFile() && f.exists()) {
 
@@ -59,19 +60,30 @@ public class Gather {
                         break;
                     count++;
                     line = line.substring(1, line.length() - 1);
-                    result.add(line.split(",")[0] + "," + line.split(",")[1] + "," + "20150832");
+//                    result.add(line.split(",")[0] + "," + line.split(",")[1] + "," + i);
+                    resultWithNoRepeat.put(line.split(",")[0],line.split(",")[0] + "," + line.split(",")[1] + "," + date);
                 }
                 io.close();
 
             }
-            FileWriter wr = new FileWriter("/Users/chenwuji/Documents/skypool/SongTestSet3.txt", true);
-
-            for (String j : result) {
-                wr.write(j + "\n");
-            }
-            wr.close();
+//            FileWriter wr = new FileWriter("/Users/chenwuji/Documents/skypool/SongTestSet3.txt", true);
+//
+////            for (String j : result) {  注释掉的部分是直接存储的部分  后面的没有注释的是去掉重复的部分
+////                wr.write(j + "\n");
+////            }
+//
+//            wr.close();
 
         }
+        FileWriter wr = new FileWriter("/Users/chenwuji/Documents/skypool/SongTestSet0429.txt", true);
+
+
+
+        for (Map.Entry<String,String> jjj:resultWithNoRepeat.entrySet()) {  //注释掉的部分是直接存储的部分  后面的没有注释的是去掉重复的部分
+            wr.write(jjj.getValue() + "\n");
+        }
+
+            wr.close();
         if(count!=50)
             System.out.println("warning!"+date+" "+count);
     }
