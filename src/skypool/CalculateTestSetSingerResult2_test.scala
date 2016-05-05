@@ -4,10 +4,9 @@ import java.net.URI
 
 import org.apache.hadoop.conf.Configuration
 import org.apache.hadoop.fs.{FileSystem, Path}
-import org.apache.spark.rdd.RDD
 import org.apache.spark.{SparkConf, SparkContext}
 
-object CalculateTestSetSingerResult2 {
+object CalculateTestSetSingerResult2_test {
      def main(args: Array[String]) {
        //      System.setProperty("hadoop.home.dir","D:\\lib\\hadoop")
             val conf = new SparkConf().setAppName("test3")
@@ -26,18 +25,7 @@ object CalculateTestSetSingerResult2 {
        val aggregated = currentDay.groupBy(_._2).map(x=>(x._1,x._2.toList.length))
 
        val Date123 = 20150701;
-       for(Date123 <- 20150801 to 20150830)
-       {
-         val currentDay = sc.textFile("hdfs://192.168.86.41:9000/user/wjchen/skypool1/testing_data/dayByday/"+Date123)
-           .map(x => x.split(",|\\)|\\(")).map(x=>(x(1),x(2),x(3).toInt,x(4).toInt,x(5).toInt)).filter(x=>x._4==1).cache()
-
-         val songCount = currentDay.groupBy(_._2).map(x=>(x._1,x._2.toList.length))
-         //           aggregated.aggregate(songCount)
-         deleteHDFSDir("hdfs://192.168.86.41:9000/user/wjchen/skypool1/testing_data/dayBydayFinal/"+Date123);
-         songCount.saveAsTextFile("hdfs://192.168.86.41:9000/user/wjchen/skypool1/testing_data/dayBydayFinal/"+Date123)
-
-       }
-       for(Date123 <- 20150701 to 20150731)
+       for(Date123 <- 20150701 to 20150715)
          {
            val currentDay = sc.textFile("hdfs://192.168.86.41:9000/user/wjchen/skypool1/testing_data/dayByday/"+Date123)
              .map(x => x.split(",|\\)|\\(")).map(x=>(x(1),x(2),x(3).toInt,x(4).toInt,x(5).toInt)).filter(x=>x._4==1).cache()
