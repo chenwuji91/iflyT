@@ -17,7 +17,6 @@ public class Main {
         m.init();
         m.checkLegal();
         System.out.println("The F-value is : "+m.calculate());
-
     }
     private void repair()
     {
@@ -49,11 +48,7 @@ public class Main {
         testing = FileRead.loadTesting();
         Collections.sort(predict);
         Collections.sort(testing);
-//        for(int i = 0;i<predict.size();i++)
-//        {
-//            System.out.println(predict.get(i).getSingerId()+""+predict.get(i).getDatetime());
-//        }
-//        System.out.println("完成初始化");
+
 
     }
     private void checkLegal()
@@ -97,21 +92,39 @@ public class Main {
                         System.out.println("Calculate Error is coming,exiting..."+" "+countDay+" "+Const.DayOfPredictDay);
                         System.exit(1);
                     }
-                    oneSinger[countSinger] = Math.sqrt(oneSinger[countSinger]/countDay);
+//                    if(currentTest.getSingerId().equals("2e14d32266ee6b4678595f8f50c369ac"))
+//                            System.out.println(oneSinger[countSinger]);
+                    oneSinger[countSinger] = Math.sqrt((float)oneSinger[countSinger]/(float)countDay);
+//                    System.out.println(currentTest.getSingerId());
+                    System.out.print("当前歌手的评分"+firstTestId+" " );//(1-oneSinger[countSinger])
                     weight[countSinger] = Math.sqrt(weight[countSinger]);
+                    System.out.println(weight[countSinger]*(1-oneSinger[countSinger]));
                     firstTestId = currentTest.getSingerId();
                     firstPredictId = currentPredict.getSingerId();
                     countSinger++;
                     countDay = 0;
                 }
 
-                if(currentTest.getSingerId().equals(firstTestId)&&currentPredict.getSingerId().equals(firstPredictId))
+               if(currentTest.getSingerId().equals(firstTestId)&&currentPredict.getSingerId().equals(firstPredictId))
                 {
                     if(currentTest.getSingerId().equals(currentPredict.getSingerId()) )
                     {
                         if(currentPredict.getDatetime()==currentTest.getDatetime())
                         {
-                            oneSinger[countSinger] += (Math.pow((currentPredict.getListenCount()-currentTest.getListenCount())/currentTest.getListenCount(),2));
+                            float temp1 = (float)(currentPredict.getListenCount()-currentTest.getListenCount());
+                            float temp2 = (float)(currentTest.getListenCount());
+                            oneSinger[countSinger] = oneSinger[countSinger] + (temp1/temp2)*(temp1/temp2);
+//                            if(currentTest.getSingerId().equals("2e14d32266ee6b4678595f8f50c369ac"))
+//                            {
+//                                System.out.println(oneSinger[countSinger]+"  "+countDay);
+//                                if(countDay==45)
+//                                    System.out.println();
+//                            }
+//                            oneSinger[countSinger] = oneSinger[countSinger]+(((float)(currentPredict.getListenCount()-currentTest.getListenCount()))/(float)currentTest.getListenCount())*
+//                                    (((float)(currentPredict.getListenCount()-currentTest.getListenCount()))/(float)currentTest.getListenCount());
+                            if(oneSinger[countSinger]<0)
+                                System.out.println("!!!!!!!!!!!!!"+oneSinger[countSinger]);
+
                             weight[countSinger] += currentTest.getListenCount();
                             countDay++;
                         }
@@ -134,12 +147,23 @@ public class Main {
 
             }
         }
-
-        for(int i = 0;i < Const.singerCount;i++)
         {
-            fValue += (1-oneSinger[i])*weight[i];
+            oneSinger[countSinger] = Math.sqrt((float)oneSinger[countSinger]/(float)countDay);
+//处理一下最后那个歌手的得分
+//                    System.out.println(currentTest.getSingerId());
+  //          System.out.println("当前歌手的一个评分"+currentTest.getSingerId()+" "+ (1-oneSinger[countSinger]));
+
+            weight[countSinger] = Math.sqrt(weight[countSinger]);
         }
 
+        for(int i = 0;i < oneSinger.length;i++)
+        {
+            fValue += (float)(1-oneSinger[i])*(float)weight[i];
+            System.out.println(fValue);
+        }
+//        System.out.println(oneSinger[49]);
+//        System.out.println(weight[49]);
+//        System.out.println(fValue);
         return fValue;
 
     }
