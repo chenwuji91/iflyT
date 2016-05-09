@@ -7,7 +7,7 @@ public interface Const {
     public static final int DayOfPredictDay = 46;
     public static final int singerCount = 50;
     public static final int songCount = 10278;
- //    public static final String PredictFilePath = "/Users/chenwuji/Documents/skypool/old/TestResult2.txt";
+
     public static final String TestingFilePath = "/Users/chenwuji/Documents/skypool/TestResult.txt";
  //   public static final String TestingFilePath = "/Users/chenwuji/Documents/skypool/old/TestResult2.txt";
 // public static final String PredictFilePath = "/Users/chenwuji/Documents/skypool/TestResult.txt";
