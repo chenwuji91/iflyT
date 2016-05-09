@@ -19,6 +19,8 @@ public class Record {
 		this.angle = angle;
 		this.time = time;
 		this.oc = oc;
+
+
 	}
 	
 	
