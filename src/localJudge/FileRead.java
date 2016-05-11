@@ -7,10 +7,15 @@ import java.util.ArrayList;
  * Created by chenwuji on 16/3/23.
  */
 public class FileRead {
+    public static ArrayList<Singer> loadSongPeople()
+    {
+        ArrayList<Singer> predictList = FileRead.loadFile(Const.songListPeople);
+        return predictList;
+    }
 
     public static ArrayList<Singer> loadSongList()
     {
-        ArrayList<Singer> predictList = FileRead.loadFile(Const.SongList);
+        ArrayList<Singer> predictList = FileRead.loadFile(Const.SongList2);
         return predictList;
     }
 

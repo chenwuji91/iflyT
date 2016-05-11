@@ -18,9 +18,6 @@ public class RankTheSong {
         m.init();
         m.fillData();
         m.rank();
-
-
-
     }
 
     public void rank() throws IOException {
@@ -73,14 +70,23 @@ public class RankTheSong {
         {
             String currentId = it.next();
             HashMap<Integer,Integer> temp= new HashMap<>();
-            for(int i = 20150716;i<20150732;i++)
+            for(int i = 20150301;i<20150332;i++)
             {
                 temp.put(i,0);
             }
-//            testingByDate.put(currentId,temp);
-//            predictingByDate.put(currentId, (HashMap<Integer, Integer>) temp.clone());
-//            temp= new HashMap<>();
-            for(int i = 20150801;i<20150831;i++)
+            for(int i = 20150401;i<20150431;i++)
+            {
+                temp.put(i,0);
+            }
+            for(int i = 20150501;i<20150532;i++)
+            {
+                temp.put(i,0);
+            }
+            for(int i = 20150601;i<20150631;i++)
+            {
+                temp.put(i,0);
+            }
+            for(int i = 20150701;i<20150716;i++)
             {
                 temp.put(i,0);
             }

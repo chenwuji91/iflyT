@@ -18,8 +18,11 @@ public interface Const {
     public static final String TestingFilePathBySong = "/Users/chenwuji/Documents/skypool/SongTestSet.txt";
     public static final String PredictFilePathBySong = "/Users/chenwuji/Documents/skypool/SongTestSet.txt";
     public static final String SongList = "/Users/chenwuji/Documents/skypool/SongTestSet3.txt";
+    public static final String SongList2 = "/Users/chenwuji/Documents/skypool/歌曲收听人数.txt";
 
     public static final String OutputPath = "/Users/chenwuji/Documents/skypool/";
+
+    public static final String songListPeople = "/Users/chenwuji/Documents/skypool/歌曲收听人数.txt";
 
 
 
