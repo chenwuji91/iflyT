@@ -7,9 +7,11 @@ import java.util.*;
 /**
  * Created by chenwuji on 16/4/16.
  */
+
+
 public class FillEmpty {
     private ArrayList<Singer> predict;
-
+    public static final String pathToBeFilled = "/Users/chenwuji/Documents/skypool/HotSongAndColdSong/song/";
     private ArrayList<Singer> songList;
 
     public static void main(String args[]) throws IOException {
@@ -25,7 +27,7 @@ public class FillEmpty {
             String songName = i.getSingerId();
             int listenCount = i.getListenCount();
             int time = i.getDatetime();
-            FileWriter wr = new FileWriter("/Users/chenwuji/Documents/skypool/temp1/收听人数/"+songName+".csv",true);
+            FileWriter wr = new FileWriter("/Users/chenwuji/Documents/skypool/HotSongAndColdSong/songFilled/"+songName+".csv",true);
             wr.write(listenCount+","+time+"\n");
             wr.close();
         }
@@ -68,7 +70,11 @@ public class FillEmpty {
             {
                 temp.put(i,0);
             }
-            for(int i = 20150701;i<20150716;i++)
+            for(int i = 20150701;i<20150732;i++)
+            {
+                temp.put(i,0);
+            }
+            for(int i = 20150801;i<20150831;i++)
             {
                 temp.put(i,0);
             }
@@ -106,7 +112,11 @@ public class FillEmpty {
             {
                 predict.add(new Singer(currentId,currentIdMap.get(i),i));
             }
-            for(int i = 20150701;i<20150716;i++)
+            for(int i = 20150701;i<20150732;i++)
+            {
+                predict.add(new Singer(currentId,currentIdMap.get(i),i));
+            }
+            for(int i = 20150801;i<20150831;i++)
             {
                 predict.add(new Singer(currentId,currentIdMap.get(i),i));
             }

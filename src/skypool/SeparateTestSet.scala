@@ -29,7 +29,7 @@ object SeparateTestSet {
        val userAction715_830 = sc.textFile("hdfs://192.168.86.41:9000/user/wjchen/skyPoolUserAction")
          .map(x => x.split(",")).map(x=>(x(0),x(1),TransUnixToDateTime.translate(x(2).toInt).toInt,x(3).toInt,x(4).toInt)).filter(x=>x._3>2015071500).filter(x=>x._3<2015083200).cache()
 
-      deleteHDFSDir("hdfs://192.168.86.41:9000/user/wjchen/skypool1/training_data_new")
+       deleteHDFSDir("hdfs://192.168.86.41:9000/user/wjchen/skypool1/training_data_new")
        deleteHDFSDir("hdfs://192.168.86.41:9000/user/wjchen/skypool1/testing_data_new")
        userAction3_715.saveAsTextFile("hdfs://192.168.86.41:9000/user/wjchen/skypool1/training_data_new");
        userAction715_830.saveAsTextFile("hdfs://192.168.86.41:9000/user/wjchen/skypool1/testing_data_new");

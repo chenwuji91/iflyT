@@ -27,7 +27,7 @@ object CalculateTestSetSingerResult3_2 {
           .map(x=>(x(0),x(1)))
 
        val Date123 = 0;
-       for(Date123 <- 20150701 to 20150715)
+       for(Date123 <- 20150701 to 20150731)
        {
          val songListenTime = sc.textFile("hdfs://192.168.86.41:9000/user/wjchen/skypool1/testing_data/dayBydayFinalReduced/"+Date123)  //读取歌曲次数  前面是歌曲名称  后面接着是次数
            .map(x => x.split(",|\\)|\\(")).map(x=>(x(1),x(2))).cache()
@@ -47,7 +47,7 @@ object CalculateTestSetSingerResult3_2 {
          resultTime.saveAsTextFile("hdfs://192.168.86.41:9000/user/wjchen/skypool1/TestResult/"+Date123)
 
        }
-       for(Date123 <- 20150301 to 20150331)
+       for(Date123 <- 20150801 to 20150830)
        {
          val songListenTime = sc.textFile("hdfs://192.168.86.41:9000/user/wjchen/skypool1/testing_data/dayBydayFinalReduced/"+Date123)  //读取歌曲次数  前面是歌曲名称  后面接着是次数
            .map(x => x.split(",|\\)|\\(")).map(x=>(x(1),x(2))).cache()
@@ -66,63 +66,63 @@ object CalculateTestSetSingerResult3_2 {
          deleteHDFSDir("hdfs://192.168.86.41:9000/user/wjchen/skypool1/TestResult/"+Date123);
          resultTime.saveAsTextFile("hdfs://192.168.86.41:9000/user/wjchen/skypool1/TestResult/"+Date123)
        }
-       for(Date123 <- 20150401 to 20150430)
-       {
-         val songListenTime = sc.textFile("hdfs://192.168.86.41:9000/user/wjchen/skypool1/testing_data/dayBydayFinalReduced/"+Date123)  //读取歌曲次数  前面是歌曲名称  后面接着是次数
-           .map(x => x.split(",|\\)|\\(")).map(x=>(x(1),x(2))).cache()
-         println(songListenTime.count())
-         val afterjoin = songListenTime.leftOuterJoin(singerSong).map(x => {
-           x._2._2 match {
-             case Some(singer) => (x._1,x._2._1, singer)  //歌曲 次数 歌唱家
-             case None => (x._1, "null", "null")
-           }
-         }).map(x=>(x._3,x._2.toInt)).cache();
-         afterjoin.take(10).foreach(println);
-
-         val resultTime = afterjoin.reduceByKey((x,y)=>x+y);
-         resultTime.take(10).foreach(println);
-
-         deleteHDFSDir("hdfs://192.168.86.41:9000/user/wjchen/skypool1/TestResult/"+Date123);
-         resultTime.saveAsTextFile("hdfs://192.168.86.41:9000/user/wjchen/skypool1/TestResult/"+Date123)
-       }
-       for(Date123 <- 20150501 to 20150531)
-       {
-         val songListenTime = sc.textFile("hdfs://192.168.86.41:9000/user/wjchen/skypool1/testing_data/dayBydayFinalReduced/"+Date123)  //读取歌曲次数  前面是歌曲名称  后面接着是次数
-           .map(x => x.split(",|\\)|\\(")).map(x=>(x(1),x(2))).cache()
-         println(songListenTime.count())
-         val afterjoin = songListenTime.leftOuterJoin(singerSong).map(x => {
-           x._2._2 match {
-             case Some(singer) => (x._1,x._2._1, singer)  //歌曲 次数 歌唱家
-             case None => (x._1, "null", "null")
-           }
-         }).map(x=>(x._3,x._2.toInt)).cache();
-         afterjoin.take(10).foreach(println);
-
-         val resultTime = afterjoin.reduceByKey((x,y)=>x+y);
-         resultTime.take(10).foreach(println);
-
-         deleteHDFSDir("hdfs://192.168.86.41:9000/user/wjchen/skypool1/TestResult/"+Date123);
-         resultTime.saveAsTextFile("hdfs://192.168.86.41:9000/user/wjchen/skypool1/TestResult/"+Date123)
-       }
-       for(Date123 <- 20150601 to 20150630)
-       {
-         val songListenTime = sc.textFile("hdfs://192.168.86.41:9000/user/wjchen/skypool1/testing_data/dayBydayFinalReduced/"+Date123)  //读取歌曲次数  前面是歌曲名称  后面接着是次数
-           .map(x => x.split(",|\\)|\\(")).map(x=>(x(1),x(2))).cache()
-         println(songListenTime.count())
-         val afterjoin = songListenTime.leftOuterJoin(singerSong).map(x => {
-           x._2._2 match {
-             case Some(singer) => (x._1,x._2._1, singer)  //歌曲 次数 歌唱家
-             case None => (x._1, "null", "null")
-           }
-         }).map(x=>(x._3,x._2.toInt)).cache();
-         afterjoin.take(10).foreach(println);
-
-         val resultTime = afterjoin.reduceByKey((x,y)=>x+y);
-         resultTime.take(10).foreach(println);
-
-         deleteHDFSDir("hdfs://192.168.86.41:9000/user/wjchen/skypool1/TestResult/"+Date123);
-         resultTime.saveAsTextFile("hdfs://192.168.86.41:9000/user/wjchen/skypool1/TestResult/"+Date123)
-       }
+//       for(Date123 <- 20150401 to 20150430)
+//       {
+//         val songListenTime = sc.textFile("hdfs://192.168.86.41:9000/user/wjchen/skypool1/testing_data/dayBydayFinalReduced/"+Date123)  //读取歌曲次数  前面是歌曲名称  后面接着是次数
+//           .map(x => x.split(",|\\)|\\(")).map(x=>(x(1),x(2))).cache()
+//         println(songListenTime.count())
+//         val afterjoin = songListenTime.leftOuterJoin(singerSong).map(x => {
+//           x._2._2 match {
+//             case Some(singer) => (x._1,x._2._1, singer)  //歌曲 次数 歌唱家
+//             case None => (x._1, "null", "null")
+//           }
+//         }).map(x=>(x._3,x._2.toInt)).cache();
+//         afterjoin.take(10).foreach(println);
+//
+//         val resultTime = afterjoin.reduceByKey((x,y)=>x+y);
+//         resultTime.take(10).foreach(println);
+//
+//         deleteHDFSDir("hdfs://192.168.86.41:9000/user/wjchen/skypool1/TestResult/"+Date123);
+//         resultTime.saveAsTextFile("hdfs://192.168.86.41:9000/user/wjchen/skypool1/TestResult/"+Date123)
+//       }
+//       for(Date123 <- 20150501 to 20150531)
+//       {
+//         val songListenTime = sc.textFile("hdfs://192.168.86.41:9000/user/wjchen/skypool1/testing_data/dayBydayFinalReduced/"+Date123)  //读取歌曲次数  前面是歌曲名称  后面接着是次数
+//           .map(x => x.split(",|\\)|\\(")).map(x=>(x(1),x(2))).cache()
+//         println(songListenTime.count())
+//         val afterjoin = songListenTime.leftOuterJoin(singerSong).map(x => {
+//           x._2._2 match {
+//             case Some(singer) => (x._1,x._2._1, singer)  //歌曲 次数 歌唱家
+//             case None => (x._1, "null", "null")
+//           }
+//         }).map(x=>(x._3,x._2.toInt)).cache();
+//         afterjoin.take(10).foreach(println);
+//
+//         val resultTime = afterjoin.reduceByKey((x,y)=>x+y);
+//         resultTime.take(10).foreach(println);
+//
+//         deleteHDFSDir("hdfs://192.168.86.41:9000/user/wjchen/skypool1/TestResult/"+Date123);
+//         resultTime.saveAsTextFile("hdfs://192.168.86.41:9000/user/wjchen/skypool1/TestResult/"+Date123)
+//       }
+//       for(Date123 <- 20150601 to 20150630)
+//       {
+//         val songListenTime = sc.textFile("hdfs://192.168.86.41:9000/user/wjchen/skypool1/testing_data/dayBydayFinalReduced/"+Date123)  //读取歌曲次数  前面是歌曲名称  后面接着是次数
+//           .map(x => x.split(",|\\)|\\(")).map(x=>(x(1),x(2))).cache()
+//         println(songListenTime.count())
+//         val afterjoin = songListenTime.leftOuterJoin(singerSong).map(x => {
+//           x._2._2 match {
+//             case Some(singer) => (x._1,x._2._1, singer)  //歌曲 次数 歌唱家
+//             case None => (x._1, "null", "null")
+//           }
+//         }).map(x=>(x._3,x._2.toInt)).cache();
+//         afterjoin.take(10).foreach(println);
+//
+//         val resultTime = afterjoin.reduceByKey((x,y)=>x+y);
+//         resultTime.take(10).foreach(println);
+//
+//         deleteHDFSDir("hdfs://192.168.86.41:9000/user/wjchen/skypool1/TestResult/"+Date123);
+//         resultTime.saveAsTextFile("hdfs://192.168.86.41:9000/user/wjchen/skypool1/TestResult/"+Date123)
+//       }
 
 
 

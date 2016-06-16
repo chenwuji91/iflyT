@@ -11,8 +11,10 @@ public interface Const {
     public static final String TestingFilePath = "/Users/chenwuji/Documents/skypool/TestResult.txt";
  //   public static final String TestingFilePath = "/Users/chenwuji/Documents/skypool/old/TestResult2.txt";
 // public static final String PredictFilePath = "/Users/chenwuji/Documents/skypool/TestResult.txt";
-// public static final String PredictFilePath = "/Users/chenwuji/Documents/skypool/qianshenFittingData/20160509230613_predict_result_by_singer.csv";
-    public static final String PredictFilePath = "/Users/chenwuji/Documents/skypool/qianshenFittingData/predict_result_by_song.csv";
+//    public static final String PredictFilePath = "/Users/chenwuji/Documents/skypool/测评相关/qianshen0516.csv";
+    public static final String PredictFilePath = "/Users/chenwuji/Documents/skypool/测评相关/PredictResult3.txt";
+//    public static final String PredictFilePath = "/Users/chenwuji/Documents/skypool/qianshenFittingData/predict_result_by_song.csv";
+//    public static final String PredictFilePath = "/Users/chenwuji/Documents/skypool/predict_result_2.txt";
 
 
     public static final String TestingFilePathBySong = "/Users/chenwuji/Documents/skypool/SongTestSet.txt";

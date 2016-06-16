@@ -154,6 +154,11 @@ public class Main {
   //          System.out.println("当前歌手的一个评分"+currentTest.getSingerId()+" "+ (1-oneSinger[countSinger]));
 
             weight[countSinger] = Math.sqrt(weight[countSinger]);
+            System.out.print("当前歌手的评分"+testing.get(49).getSingerId()+" " );//(1-oneSinger[countSinger])
+
+            System.out.println(weight[countSinger]*(1-oneSinger[countSinger]));
+
+
         }
 
         for(int i = 0;i < oneSinger.length;i++)

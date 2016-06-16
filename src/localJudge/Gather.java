@@ -16,7 +16,7 @@ public class Gather {
     public static void main(String args[]) throws Exception {
 //        File file = new File("/Users/chenwuji/Documents/skypool/allSingerData/skypoolAllSinger");
         System.out.println("Begin");
-        File file = new File("/Users/chenwuji/Documents/skypool/歌曲收听人数/");
+        File file = new File("/Users/chenwuji/Documents/skypool/temp1/singerTime/singerListt/");
 //        /Users/chenwuji/Documents/skypool/SongTestSet
         String rootpath = file.getAbsolutePath();
         String fileList[] = file.list();
@@ -75,7 +75,7 @@ public class Gather {
 //            wr.close();
 
         }
-        FileWriter wr = new FileWriter("/Users/chenwuji/Documents/skypool/歌曲收听人数.txt", true);
+        FileWriter wr = new FileWriter("/Users/chenwuji/Documents/skypool/歌shou收听人数2.txt", true);
 
 
 

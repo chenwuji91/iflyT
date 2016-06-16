@@ -9,7 +9,18 @@ import java.util.ArrayList;
 public class FileRead {
     public static ArrayList<Singer> loadSongPeople()
     {
-        ArrayList<Singer> predictList = FileRead.loadFile(Const.songListPeople);
+        File file=new File(FillEmpty.pathToBeFilled);
+        File[] tempList = file.listFiles();
+        ArrayList<Singer> predictList = new ArrayList<>();
+        for (File path:tempList)
+        {
+            if(path.getName().equals(".DS_Store"))
+                continue;
+            ArrayList<Singer> temp = FileRead.loadFile(path.toString());
+            predictList.addAll(temp);
+//            System.out.println(path.toString());
+        }
+
         return predictList;
     }
 
@@ -71,7 +82,7 @@ public class FileRead {
             }
         }
         if(singerList.size()!= Const.DayOfPredictDay*Const.singerCount) {
-            System.out.println("非正式测评");
+//            System.out.println("非正式测评");
         }
         return singerList;
     }
